@@ -1,4 +1,4 @@
-import * as vscode from 'vscode'; 
+import * as vscode from 'vscode';
 import * as proc from 'child_process';
 import * as path from 'path';
 
@@ -6,25 +6,25 @@ import StylishHaskellProvider from './features/stylishHaskellProvider';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	console.log('stylish-haskell activated'); 
+	console.log('stylish-haskell activated');
 
 	var provider = new StylishHaskellProvider();
 	provider.activate(context.subscriptions);
 
-	var channel = vscode.window.createOutputChannel('stylish-haskell');	
+	var channel = vscode.window.createOutputChannel('stylish-haskell');
 
 	var runOnCurrentCmd = vscode.commands.registerCommand('stylishHaskell.runOnCurrent', () => {
 		var doc = vscode.window.activeTextEditor.document;
 		runStylishHaskell(doc.fileName, doc.uri, channel, provider);
 	});
 	context.subscriptions.push(runOnCurrentCmd);
-	
+
 	var onSave = vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => {
 		if (isRunOnSaveEnabled()) {
 			runStylishHaskell(e.fileName, e.uri, channel, provider);
 		}
 	});
-		
+
 	context.subscriptions.push(onSave);
 }
 
