@@ -30,17 +30,19 @@
 					"default": true,
 					"description": "Run stylish-haskell on every save for Haskell files"
 				},
-                "stylishHaskell.showConsoleOnError": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Show the command's output in the debug console on error"
-                }
+				"stylishHaskell.showConsoleOnError": {
+					"type": "boolean",
+					"default": true,
+					"description": "Show the command's output in the debug console on error"
+				}
 			}
 		},
-		"commands": [{
-			"command": "stylishHaskell.runOnCurrent",
-			"title": "Run stylish-haskell"
-		}]
+		"commands": [
+			{
+				"command": "stylishHaskell.runOnCurrent",
+				"title": "Run stylish-haskell"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
