@@ -48,14 +48,12 @@ function runStylishHaskell(fileName: string, uri: vscode.Uri, channel: vscode.Ou
 			cmd,
 			options,
 			(error: Error, stdout: Buffer, stderr: Buffer) => {
-				if (error) {
-					vscode.window.showErrorMessage("Failed to run stylish-haskell");
-				} else {
+				if (!error) {
 					// Workaround for https://github.com/Microsoft/vscode/issues/2592
 					vscode.workspace.openTextDocument(fileName).then((doc: vscode.TextDocument) => {
 						let existingSource = doc.getText();
 						let newSource = stdout.toString();
-						
+
 						if (existingSource != newSource) {
 							let edit = new vscode.WorkspaceEdit();
 							edit.replace(doc.uri, new vscode.Range(doc.positionAt(0), doc.positionAt(existingSource.length)), stdout.toString());
@@ -66,11 +64,7 @@ function runStylishHaskell(fileName: string, uri: vscode.Uri, channel: vscode.Ou
 				}
 
 				if (stderr.length > 0) {
-					if (isShowConsoleOnErrorEnabled()) {				
-						channel.appendLine(stderr.toString());
-						channel.show(vscode.ViewColumn.Two);
-					}
-
+					channel.appendLine(stderr.toString());
 					provider.processOutput(uri, stderr.toString());
 				} else {
 					channel.hide();
