@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as proc from 'child_process';
 import * as path from 'path';
 
-import StylishHaskellProvider from './features/StylishHaskellProvider';
+import StylishHaskellProvider from './features/stylishHaskellProvider';
 
 export function activate(context: vscode.ExtensionContext) {
 
